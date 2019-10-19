@@ -2,10 +2,9 @@
 <html>
 <head>
 	<title>Image Validator</title>
-</head>
-<body>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<style type="text/css">
-
 		*, *:before, *:after {
 		    margin: 0;
 		    padding: 0;
@@ -14,6 +13,10 @@
 		    -ms-box-sizing: border-box;
 		    box-sizing: border-box;
 		    -webkit-font-smoothing: antialiased;
+		}
+		body
+		{
+			font-family: 'Roboto', sans-serif;
 		}
 		.animination-z {
 		    -webkit-transition: all 0.5s ease;
@@ -37,14 +40,19 @@
 		{
 			float: right;
 		}
+		.pad-10
+		{
+			padding: 10px;
+		}
 		.add_this_d
 		{
-			width: 340px;
-			height: 210px;
-			float: left;
-			margin-top: 10px;
-			margin-right: 10px;	
-			position: relative;
+			width: 31.3%;
+		    height: 210px;
+		    float: left;
+		    margin-top: 10px;
+		    margin-right: 1%;
+		    margin-left: 1%;
+		    position: relative;
 		}
 		.img_asc
 		{
@@ -73,15 +81,338 @@
 		    justify-content: center;
 		    align-items: center;
 		}
-	</style>
+		.set_me_upload
+		{
+			position: relative;
+		    width: 600px;
+		    height: 130px;
+		    background: #e8e8e8;
+		    margin: 10px auto;
+		    border: 1px dashed #a0a0a0;
+		    border-radius: 3px;
+		}
+		.set_me_upload_back
+		{
+			width: 100%;
+		    height: 100%;
+		    position: absolute;
+		    left: 0px;
+		    top: 0px;
+		    z-index: 1;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+		.set_inp_v1
+		{
+			position: absolute;
+		    width: 100%;
+		    height: 100%;
+		    left: 0;
+		    top: 0px;
+		    z-index: 2;
+		    cursor: pointer;
+		    opacity: 0;
+		}
+		.text-align-center
+		{
+			text-align: center;
+		}
+		.centerme
+		{
+			width: 80%;
+		}
+		.loading {
+		  position: absolute;
+		  top: 50%;
+		  left: 50%;
+		}
+		.loading-bar {
+		  display: inline-block;
+		  width: 4px;
+		  height: 18px;
+		  border-radius: 4px;
+		  animation: loading 1s ease-in-out infinite;
+		}
+		.loading-bar:nth-child(1) {
+		  background-color: #3498db;
+		  animation-delay: 0;
+		}
+		.loading-bar:nth-child(2) {
+		  background-color: #c0392b;
+		  animation-delay: 0.09s;
+		}
+		.loading-bar:nth-child(3) {
+		  background-color: #f1c40f;
+		  animation-delay: .18s;
+		}
+		.loading-bar:nth-child(4) {
+		  background-color: #27ae60;
+		  animation-delay: .27s;
+		}
 
-  <input required type="file" name="fileToUpload" multiple data-preview-to="#preview" />
-  <div id=preview></div>
-  <input type=hidden name="who-sent" value="jake sent me">
-  <!-- <button>submit</button> -->
+		@keyframes loading {
+		  0% {
+		    transform: scale(1);
+		  }
+		  20% {
+		    transform: scale(1, 2.2);
+		  }
+		  40% {
+		    transform: scale(1);
+		  }
+		}
+		.set_loading_v2
+		{
+			display: none;
+		    position: absolute;
+		    top: 0px;
+		    right: 0px;
+		    width: 100%;
+		    height: 100%;
+		    background: #e8e8e8;
+		    z-index: 4;		    
+		    justify-content: center;
+		    align-items: center;
+		}
+		.loadingv1 .set_loading_v2
+		{
+			display: flex;
+			cursor: not-allowed;
+		}
+		.w-33
+		{
+			width: 33.3%;
+			float: left;
+			min-height: 130px;
+			margin: 20px 0px;
+		}
+		.show_res_details
+		{
+			font-size: 14px;
+		}
+		.lightbox-d
+		{
+			position: fixed;
+			left: -100%;
+			top: 0;
+			background: #000000b0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 10;
+			overflow: hidden;
+		}
+		.lightbox-d.active
+		{
+			left: 0px;
+		}
+		.close {
+		  position: absolute;
+		  right: 32px;
+		  top: 32px;
+		  width: 32px;
+		  height: 32px;
+		  opacity: 0.3;
+		  cursor: pointer;
+		}
+		.close:hover {
+		  opacity: 1;
+		}
+		.close:before, .close:after {
+		  position: absolute;
+		  left: 15px;
+		  content: ' ';
+		  height: 33px;
+		  width: 2px;
+		  background-color: #fff;
+		}
+		.close:before {
+		  transform: rotate(45deg);
+		}
+		.close:after {
+		  transform: rotate(-45deg);
+		}
+
+		.show_data_here
+		{
+			width: 520px;
+		    min-height: 270px;
+		    background: #fff;
+		    border-radius: 2px;
+		    padding: 20px;
+		}
+		.posr
+		{
+			position: relative;
+		}
+
+		/* Ripple effect */
+		.ripple {
+		  background-position: center;
+		  transition: background 0.8s;
+		}
+		.ripple:hover {
+		  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+		}
+		.ripple:active {
+		  background-color: #6eb9f7;
+		  background-size: 100%;
+		  transition: background 0s;
+		}
+
+		/* Button style */
+		.button_b1 {
+			border: none;
+			border-radius: 2px;
+			padding: 3px 38px;
+			font-size: 12px;
+			text-transform: uppercase;
+			cursor: pointer;
+			color: white;
+			background-color: #2196f3;
+			/*box-shadow: 0 0 4px #999;*/
+			outline: none;
+		}
+		.pad-bottom-0
+		{
+			padding-bottom: 0px;
+		}
+		.border-bottom-1
+		{
+			border-bottom: 1px solid;
+		}
+		.box-details-title
+		{
+			width: 100%;
+			float: left;
+			border-top: 1px solid;
+			border-bottom: 1px solid;
+		}
+		.check_for_child
+		{
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="lightbox-d" set_id="premium">
+		<div class="close opeblb"></div>
+		<div class="show_data_here">
+			<h3 class="border-bottom-1">Premium LP</h5><br>
+			<p class="show_res_details">
+				<b>Canvas Images:</b><br>
+				1440X500 px (for viewport above 1200 px) // Max: 250kb*<br>
+				1200x420 px (between 990 and 1199 px) // Max: 180kb*<br>
+				990x484 px (between 768 and 989 px) // Max: 150kb*<br>
+				768x190 px (for viewport below 767 px) // Max: 60kb*<br>
+				2880X1000 px (for viewport above 1200 px) // Max: 250kb*<br>
+				2400x840 px (between 990 and 1199 px) // Max: 180kb*<br>
+				1980x968 px (between 768 and 989 px) // Max: 150kb*<br>
+				1536x380 px (for viewport below 767 px) // Max: 60kb*<br><br>
+
+				<b>Gallery</b><br>
+				370x249 px (for all the viewport) // Max: 50kb*<br><br>
+
+				<b>Immersive image</b><br>
+				1440x740 (for viewport above 1200 px) // Max: 160kb*<br>
+				1200x617 (between 990 and 1199 px) // Max: 150kb*<br>
+				990x509 (between 768 and 989 px) // Max: 130kb*<br>
+				768x395 (for viewport below 767 px) // Max: 80kb*
+			</p>
+		</div>
+	</div>
+	<div class="lightbox-d" set_id="standard">
+		<div class="close opeblb"></div>
+		<div class="show_data_here">
+			<h3 class="border-bottom-1">Standard LP</h5><br>
+			<p class="show_res_details">
+				<b>Canvas Image Desktop:</b><br>
+				1080X666 // Max: 150kb<br><br>
+
+				<b>Canvas Image Mobile:</b><br>
+				800X476 // Max: 50kb<br><br>
+
+				<b>Slider images:</b><br>
+				557X382 // Max: 30kb
+			</p>
+		</div>
+	</div>
+	<div class="w-100 fl posr text-align-center pad-10 pad-bottom-0">
+		<button class="ripple button_b1 opeblb" get_id="premium">Details For Premium</button>
+		<button class="ripple button_b1 opeblb" get_id="standard">Details For Standard</button>
+	</div>
+	<div class="w-100 fl posr">
+		<div class="set_me_upload">
+			<input required type="file" name="fileToUpload" class="set_inp_v1" multiple data-preview-to="" />
+			<div class="set_me_upload_back">
+				<p class="text-align-center"><i class="fa fa-upload" aria-hidden="true"></i><br>Drag or Upload Images Only</p>
+			</div>
+			<div class="set_loading_v2">
+				<div class="loading">
+					<div class="loading-bar"></div>
+					<div class="loading-bar"></div>
+					<div class="loading-bar"></div>
+					<div class="loading-bar"></div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
+
+	<div class="w-100 fl pad-10 check_for_child">
+		<h3 class="text-align-center box-details-title">Standard</h3>
+		<div id="standard" class="w-100 fl preview"></div>
+	</div>
+	<div class="w-100 fl pad-10 check_for_child">
+		<h3 class="text-align-center box-details-title">Premium</h3>
+		<div id="premium" class="w-100 fl preview"></div>
+	</div>
+	<div class="w-100 fl pad-10 check_for_child">
+		<h3 class="text-align-center box-details-title">Invalid</h3>
+		<div id="invalid" class="w-100 fl preview"></div>
+	</div>
+	<!-- <input type=hidden name="who-sent" value="jake sent me"> -->
+	<!-- <button>submit</button> -->
 
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
+		$(document).on("click", ".opeblb", function() {
+			var getid = $(this).attr('get_id');
+			// console.log("[set_id-d="+getid+"]");
+			$(".lightbox-d").removeClass('active');
+			setTimeout(function(){ 
+				$("[set_id="+getid+"]").addClass('active');
+			}, 500);
+			
+		});
+
+		function isEmpty( el ){
+			return !$.trim(el.html())
+		}
+		
+		// function check_for_empty()
+		// {
+
+		// 	$(".check_for_child").each(function() {
+		// 		if (isEmpty($(this).children('preview'))) {
+		// 			$(this).hide();
+		// 		}
+		// 		else
+		// 		{
+		// 			$(this).show();
+		// 		}
+		// 	});
+		// 	console.log(1)
+			
+		// }
+		// check_for_empty()
+
+
+
 			function formatBytesShowUnit(bytes,decimals) {
 			   if(bytes == 0) return '0 Bytes';
 			   var k = 1024,
@@ -98,15 +429,24 @@
 			       i = Math.floor(Math.log(bytes) / Math.log(k));
 			   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
 			}
+			function mergeByProperty(array1, array2, prop) {
+			    return array2.map(function (item2) {
+			        var item1 = array1.find(function (item1) {
+			            return item1[prop] === item2[prop];
+			        });
+			        return Object.assign({}, item1, item2);
+			    });
+			}
 			$(document).on("change", "[data-preview-to]", function() {
+				console.log('Lodinng Start');
+				startthis  = $(this);
+				startthis.parents('.set_me_upload').addClass('loadingv1');
+				$(".preview").empty();
+				$('.check_for_child').hide();
 
-				// async ForEach(([1, 2, 3]), async (num) => {
-				//   await waitFor(50);
-				//   console.log(num);
-				// })
 
-
-				// console.log(this.files.length)
+				var onlyWeidth 	= [];
+				let sizeImgD	= []; 
 				for (var i = 0; i < this.files.length; i++)
 				{
 					var file  		= this.files[i];
@@ -116,63 +456,173 @@
 					var objectURL 	= URL.createObjectURL(file);
 					img.src 		= objectURL;
 					var setClass 	= "";
-					var setsize 	= file.size;
-					console.log(setsize)
-
+					var setsize 	= {
+						sizeW : file.size,
+						url : objectURL
+					}
+					onlyWeidth.push(setsize);
+					
 					img.onload = function() {
+						
 						var sizes = {
 							width:this.width,
-							height: this.height
+							height: this.height,
+							url: this.src
+
 						};
-						console.log(this.src)
-						console.log('onload sizes', sizes);
+						sizeImgD.push(sizes);
 						setwidth 	= sizes.width;
 						setheight 	= sizes.height;
-						console.log('change: file', formatBytes(setsize	, 3));
-						if(setwidth == '800' && setheight >= 400 && setheight <= 500 && formatBytes(setsize, 3) <= 50)
-						{
-							console.log(file.size);
-							setClass = "valid";
-						}	
-
-
-						$("#preview").append("<div class='add_this_d'>"+
-							"<img class='img_asc' src="+this.src+">"+
-							"<div class='details_d "+setClass+"'><div class='centerme'>"+
-							"<p>File Size = <strong>"+setwidth+"x"+setheight+"</strong></p>"+
-							"<p>File Weight = <strong>"+formatBytesShowUnit(setsize, 3)+"</strong></p>"+
-							"<p>Best For  = <strong>Standred Box</strong></p>"+
-							"</div></div>"+
-							"</div>");
+						
 					};
 				}
+				setTimeout(function(){ 
+					for (var i = 0; i < onlyWeidth.length; i++)
+					{
+						
+						var allDetailsObj 	= mergeByProperty(onlyWeidth, sizeImgD, 'url');
+						var sizeinKB 	= allDetailsObj[i].sizeW;
+						var width 		= sizeImgD[i].width;
+						var height 		= sizeImgD[i].height;
+						var url 		= sizeImgD[i].url;
+						var setClass 	= "";
+						var setText		= "";
+						var set_class	= "";
+
+
+						// Standard Desktop Banner
+						if(width == 1080 && height >= 580 && height <= 680 && formatBytes(sizeinKB, 3) <= 150)
+						{
+							setClass 	= "valid";
+							setText	 	= "Standard Desktop Banner";
+							set_class	= "standard";
+
+						}
+						// Standard Mobile Banner
+						else if(width == 800 && height >= 400 && height <= 500 && formatBytes(sizeinKB, 3) <= 50)
+						{
+							setClass 	= "valid";
+							setText	 	= "Standard Mobile Banner";
+							set_class	= "standard";
+						}
+						// Standard Box Image
+						else if(width == 557 && height == 382 && formatBytes(sizeinKB, 3) <= 30)
+						{
+							setClass 	= "valid";
+							setText	 	= "Standard Box Image";
+							set_class	= "standard";
+						}
+
+						//Premium Canvas 
+						else if(width == 1440 && height == 500 && formatBytes(sizeinKB, 3) <= 250)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Canvas - Above 1200 px";
+							set_class	= "premium"
+						}
+						else if(width == 1200 && height == 420 && formatBytes(sizeinKB, 3) <= 180)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Canvas - Between 990 and 1199 px";
+							set_class	= "premium"
+						}
+						else if(width == 990 && height == 484 && formatBytes(sizeinKB, 3) <= 150)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Canvas - Between 768 and 989 px";
+							set_class	= "premium"
+						}
+						else if(width == 768 && height == 190 && formatBytes(sizeinKB, 3) <= 60)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Canvas - Below 767 px";
+							set_class	= "premium"
+						}
+						else if(width == 2880 && height == 1000 && formatBytes(sizeinKB, 3) <= 250)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Canvas -Above 1200 px(2x version for Retina display)";
+							set_class	= "premium"
+						}
+						else if(width == 2400 && height == 840 && formatBytes(sizeinKB, 3) <= 180)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Canvas - Between 990 and 1199 px(2x version for Retina display)";
+							set_class	= "premium"
+						}
+						else if(width == 1980 && height == 968 && formatBytes(sizeinKB, 3) <= 150)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Canvas - Between 768 and 989 px(2x version for Retina display)";
+							set_class	= "premium"
+						}
+						else if(width == 1536 && height == 380 && formatBytes(sizeinKB, 3) <= 60)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Canvas - Below 767 px(2x version for Retina display)";
+							set_class	= "premium"
+						}
+						//Premium Gallery
+						else if(width == 370 && height == 249 && formatBytes(sizeinKB, 3) <= 50)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Gallery";
+							set_class	= "premium"
+						}
+
+						//Premium Immersive images
+						else if(width == 1440 && height == 740 && formatBytes(sizeinKB, 3) <= 160)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Immersive images - Above 1200 px";
+							set_class	= "premium"
+						}
+						else if(width == 1200 && height == 617 && formatBytes(sizeinKB, 3) <= 150)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Immersive images - Between 990 and 1199 px";
+							set_class	= "premium"
+						}
+						else if(width == 990 && height == 509 && formatBytes(sizeinKB, 3) <= 130)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Immersive images - Between 768 and 989 px";
+							set_class	= "premium"
+						}
+						else if(width == 768 && height == 395 && formatBytes(sizeinKB, 3) <= 80)
+						{
+							setClass 	= "valid";
+							setText	 	= "Premium Immersive images - Below 767 px";
+							set_class	= "premium"
+						}
+						else
+						{
+							setClass 	= "invalid";
+							setText	 	= "Invalid";
+							set_class	= "invalid";
+						}
+						// console.log('#'+set_class);
+						$('#'+set_class).parents('.check_for_child').show();
+						$('#'+set_class).append("<div class='add_this_d'>"+
+							"<img class='img_asc' src="+url+">"+
+							"<div class='details_d "+setClass+"'><div class='centerme'>"+
+							"<p>File Size = <strong>"+width+"x"+height+"</strong></p>"+
+							"<p>File Weight = <strong>"+formatBytesShowUnit(sizeinKB, 3)+"</strong></p>"+
+							"<p><br><strong>"+setText+"</strong></p>"+
+							"</div></div>"+
+							"</div>");
+					}
+					mergeByProperty(onlyWeidth, sizeImgD, 'url');
+					console.log(mergeByProperty(onlyWeidth, sizeImgD, 'url'));
+					startthis.parents('.set_me_upload').removeClass('loadingv1');
+					// setTimeout(function(){ 
+					// 	check_for_empty();
+					// }, 500);
+				}, 3000);
 			})
-			// $(document).on("submit", function(e) {
-			//   var form = e.target
-			//   var fd = new FormData() // empty!
-			//   $(form.elements).filter("[name]").each(function() {
-			//     if (this.type === 'file') {
-			//       var checks = $($(this).data("preview-to")).find("[type=checkbox]").map(function() {
-			//         return this.checked
-			//       });
-			//       $.each(this.files, function(i, f) {
-			//         if (checks[i])
-			//           fd.append(this.name, f)
-			//       })
-			//     } else
-			//       fd.append(this.name, $(this).val())
-			//   })
-
-			//   $.ajax({
-			//     url: "../upload.php",
-			//     type: "POST",
-			//     data: fd,
-			//     contentType: false,
-			//     processData: false
-			//   })
-
-			//   return false
-			// })
 	</script>
+
+<!-- By Shekhar -->
+<!-- shekhar.chavan@accenture.com -->
 </body>
 </html>
