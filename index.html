@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<style type="text/css">
+		*, *:before, *:after {
+		    margin: 0;
+		    padding: 0;
+		    -moz-box-sizing: border-box;
+		    -webkit-box-sizing: border-box;
+		    -ms-box-sizing: border-box;
+		    box-sizing: border-box;
+		    -webkit-font-smoothing: antialiased;
+		}
+		.animination-z {
+		    -webkit-transition: all 0.5s ease;
+		    -moz-transition: all 0.5s ease;
+		    -o-transition: all 0.5s ease;
+		    transition: all 0.5s ease;
+		}
+		.w-100
+		{
+			width: 100%;
+		}
+		.w-50
+		{
+			width: 50%;
+		}
+		.fl
+		{
+			float: left;
+		}
+		.fr
+		{
+			float: right;
+		}
+		.add_this_d
+		{
+			width: 340px;
+			height: 210px;
+			float: left;
+			margin-top: 10px;
+			margin-right: 10px;	
+			position: relative;
+		}
+		.img_asc
+		{
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		.invalid
+		{
+			border: 4px solid red;
+		}
+		.valid
+		{
+			border: 4px solid green;
+		}
+		.details_d
+		{
+			width: 100%;
+		    height: 100%;
+		    position: absolute;
+		    background: #00000099;
+		    color: #fff;
+		    left: 0px;
+		    top: 0px;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+	</style>
+
+  <input required type="file" name="fileToUpload" multiple data-preview-to="#preview" />
+  <div id=preview></div>
+  <input type=hidden name="who-sent" value="jake sent me">
+  <!-- <button>submit</button> -->
+
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+			function formatBytesShowUnit(bytes,decimals) {
+			   if(bytes == 0) return '0 Bytes';
+			   var k = 1024,
+			       dm = decimals <= 0 ? 0 : decimals || 2,
+			       sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+			       i = Math.floor(Math.log(bytes) / Math.log(k));
+			   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+			}
+			function formatBytes(bytes,decimals) {
+			   if(bytes == 0) return '0 Bytes';
+			   var k = 1024,
+			       dm = decimals <= 0 ? 0 : decimals || 2,
+			       sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+			       i = Math.floor(Math.log(bytes) / Math.log(k));
+			   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+			}
+			$(document).on("change", "[data-preview-to]", function() {
+
+				// async ForEach(([1, 2, 3]), async (num) => {
+				//   await waitFor(50);
+				//   console.log(num);
+				// })
+
+
+				// console.log(this.files.length)
+				for (var i = 0; i < this.files.length; i++)
+				{
+					var file  		= this.files[i];
+					var img 		= new Image();
+					var setwidth 	= 0;
+					var setheight 	= 0;
+					var objectURL 	= URL.createObjectURL(file);
+					img.src 		= objectURL;
+					var setClass 	= "";
+					var setsize 	= file.size;
+					console.log(setsize)
+
+					img.onload = function() {
+						var sizes = {
+							width:this.width,
+							height: this.height
+						};
+						console.log(this.src)
+						console.log('onload sizes', sizes);
+						setwidth 	= sizes.width;
+						setheight 	= sizes.height;
+						console.log('change: file', formatBytes(setsize	, 3));
+						if(setwidth == '800' && setheight >= 400 && setheight <= 500 && formatBytes(setsize, 3) <= 50)
+						{
+							console.log(file.size);
+							setClass = "valid";
+						}	
+
+
+						$("#preview").append("<div class='add_this_d'>"+
+							"<img class='img_asc' src="+this.src+">"+
+							"<div class='details_d "+setClass+"'><div class='centerme'>"+
+							"<p>File Size = <strong>"+setwidth+"x"+setheight+"</strong></p>"+
+							"<p>File Weight = <strong>"+formatBytesShowUnit(setsize, 3)+"</strong></p>"+
+							"<p>Best For  = <strong>Standred Box</strong></p>"+
+							"</div></div>"+
+							"</div>");
+					};
+
+					
+					
+				}
+
+				console.log(1)
+				
+
+
+
+
+
+
+
+
+
+
+
+
+			  // $($(this).data("preview-to")).html($.map(this.files, function(f) {
+			  // 	// <figcaption><input type=checkbox checked> ${f.name}</figcaption>
+			  //   return `<figure>
+			  //  <img src="${URL.createObjectURL(f)}">
+			   
+			  // </figure>`
+			  // }))
+			})
+			// $(document).on("submit", function(e) {
+			//   var form = e.target
+			//   var fd = new FormData() // empty!
+			//   $(form.elements).filter("[name]").each(function() {
+			//     if (this.type === 'file') {
+			//       var checks = $($(this).data("preview-to")).find("[type=checkbox]").map(function() {
+			//         return this.checked
+			//       });
+			//       $.each(this.files, function(i, f) {
+			//         if (checks[i])
+			//           fd.append(this.name, f)
+			//       })
+			//     } else
+			//       fd.append(this.name, $(this).val())
+			//   })
+
+			//   $.ajax({
+			//     url: "../upload.php",
+			//     type: "POST",
+			//     data: fd,
+			//     contentType: false,
+			//     processData: false
+			//   })
+
+			//   return false
+			// })
+	</script>
+</body>
+</html>
